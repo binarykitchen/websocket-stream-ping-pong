@@ -1,0 +1,43 @@
+{
+  "name": "websocket-stream-ping-pong",
+  "version": "1.0.0",
+  "description": "websocket-stream addon to avoid disconnections",
+  "main": "index.js",
+  "scripts": {
+    "test": "node run_test_server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/binarykitchen/websocket-stream-ping-pong"
+  },
+  "author": {
+    "name": "Michael Heuberger",
+    "email": "michael.heuberger@binarykitchen.com"
+  },
+  "license": "BSD-2-Clause",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/binarykitchen/websocket-stream-ping-pong/issues"
+  },
+  "homepage": "https://github.com/binarykitchen/websocket-stream-ping-pong",
+  "engines": {
+    "iojs": ">=2.1.0"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "beefy": "2.1.5",
+    "browserify": "11.0.1",
+    "tape": "4.0.1",
+    "websocket-stream": "1.5.1",
+    "ws": "0.7.2"
+  },
+  "keywords": [
+    "websocket",
+    "websockets",
+    "stream",
+    "streams",
+    "realtime",
+    "reconnect"
+  ]
+}
