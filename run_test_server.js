@@ -1,15 +1,23 @@
-var beefy           = require('beefy'),
-    http            = require('http'),
+var http            = require('http'),
     websocketStream = require('websocket-stream'),
     WebSocketServer = require('ws').Server,
     playPingPong    = require('./index'),
 
     SERVER_PORT = 8343,
-    CLIENT_PORT = 9966
+    TIMEOUT     = 10e3
 
 var TestServer = function() {
 
-  var server, wss
+  var server, wss, serverStream, destroyTimeout
+
+  function startInactivityTimeout() {
+    clearTimeout(destroyTimeout)
+
+    destroyTimeout = setTimeout(function() {
+      console.log('Firing inactivity timeout. Destroying server ...')
+      serverStream.destroy()
+    }, TIMEOUT)
+  }
 
   this.start = function() {
 
@@ -22,7 +30,9 @@ var TestServer = function() {
       wss.on('connection', function(ws) {
         console.log('Server got websocket connection from client.')
 
-        var serverStream = websocketStream(ws)
+        serverStream = websocketStream(ws)
+
+        startInactivityTimeout()
 
         // commented out for now to reproduce the timeouts first
         // playPingPong(serverStream, {
@@ -34,24 +44,13 @@ var TestServer = function() {
         })
 
         serverStream.on('data', function(data) {
+          startInactivityTimeout()
           console.log('Server got data:', data.toString())
         })
 
         serverStream.on('end', function() {
           console.log('Server ended.')
         })
-      })
-
-      var listener = beefy({
-        entries: ['test_client.js'],
-        cwd:     __dirname,
-        live:    false,
-        quiet:   false,
-        open:    true
-      })
-
-      http.createServer(listener).listen(CLIENT_PORT, function() {
-        console.log('Now open http://localhost:' + CLIENT_PORT + ' to run client-side tests.')
       })
     })
   }

@@ -4,7 +4,8 @@
   "description": "websocket-stream addon to avoid disconnections",
   "main": "index.js",
   "scripts": {
-    "test": "node run_test_server.js"
+    "test-server": "node run_test_server.js",
+    "test-client": "browserify test_client.js > test_client_bundle.js && xdg-open test.html"
   },
   "repository": {
     "type": "git",
@@ -23,14 +24,12 @@
   "engines": {
     "iojs": ">=2.1.0"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "beefy": "2.1.5",
-    "browserify": "11.0.1",
-    "tape": "4.0.1",
-    "websocket-stream": "1.5.1",
-    "ws": "0.7.2"
+    "browserify": "11.1.0",
+    "tape": "4.2.0",
+    "websocket-stream": "2.0.2",
+    "ws": "0.8.0"
   },
   "keywords": [
     "websocket",
